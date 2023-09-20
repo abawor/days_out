@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Include necessary CSS and JavaScript for DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+
+    <title>Family Day Out Ideas</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Family Day Out Ideas</h1>
+        <table id="dayout-table" class="display">
+            <thead>
+                <tr>
+                    <th>Place</th>
+                    <th>Type</th>
+                    <th>Cost (£)</th>
+                    <th>Rainy Day</th>
+                    <th>Dog Friendly</th>
+                    <th>Travel (min.)</th>
+                    <th>Visited</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for day_out in day_out_list %}
+                    <tr>
+                        <td>{{ day_out.id }}</td>
+                        <td>{{ day_out.type }}</td>
+                        <td>{{ day_out.cost }}</td>
+                        <td>{{ day_out.rain }}</td>
+                        <td>{{ day_out.dog }}</td>
+                        <td>{{ day_out.time }}</td>
+                        <td>{% if day_out.visited == false %}
+                                <a class="ui gray label" href="/update/{{ day_out.id }}">Not Visited</a>
+                            {% else %}
+                                <a class="ui green label" href="/update/{{ day_out.id }}">Visited</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#dayout-table').DataTable();
+        });
+        $('#dayout-table').dataTable( {
+          "columnDefs": [
+            { "className": "dt-center", "targets": [2, 3, 4, 5, 6] }
+          ]
+        } );
+    </script>
+
+</body>
+</html>
