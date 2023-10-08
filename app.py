@@ -8,8 +8,8 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
-app.config['BASIC_AUTH_USERNAME'] = 'axiu'
-app.config['BASIC_AUTH_PASSWORD'] = '1437'
+app.config['BASIC_AUTH_USERNAME'] = os.environ.get('USER_ID')
+app.config['BASIC_AUTH_PASSWORD'] = os.environ.get('PASSWORD')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -45,4 +45,4 @@ def update(day_out_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=os.environ.get('APP_ENV', 'development') == 'development')
